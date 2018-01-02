@@ -117,7 +117,6 @@
 			children = (
 				2F9658F01FF74D79001D08DA /* Router */,
 				2F9658E51FF38749001D08DA /* Repository */,
-				2FECED391FF010AD00ED9E48 /* Entity */,
 				2FECED311FEAC54000ED9E48 /* Search */,
 				2FECED111FEABF5900ED9E48 /* AppDelegate.swift */,
 				2FECED181FEABF5900ED9E48 /* Assets.xcassets */,
@@ -139,20 +138,13 @@
 		2FECED311FEAC54000ED9E48 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2FECED3A1FF010CB00ED9E48 /* Event.swift */,
 				2FECED321FEAC66300ED9E48 /* SearchEventViewController.swift */,
 				2FECED351FEFBAD400ED9E48 /* SearchEventViewModel.swift */,
 				2FECED371FF0105200ED9E48 /* SearchEventModel.swift */,
 				2F9658ED1FF6B6D2001D08DA /* EventCell.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		2FECED391FF010AD00ED9E48 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				2FECED3A1FF010CB00ED9E48 /* Event.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		3B34C68CDF90E2E5E6B14C41 /* Pods */ = {
