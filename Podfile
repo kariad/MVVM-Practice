@@ -18,5 +18,6 @@ target 'MVVM-PracticeTests' do
   pod 'Quick'
   pod 'Nimble'
   pod 'RxBlocking', '~> 4.0'
-
+  pod 'RxCocoa',    '~> 4.0'
+  pod 'PureLayout'
 end

@@ -1,9 +1,9 @@
 import RxSwift
 
-class ConnpassEventRepository {
+class ConnpassEventRepository: ConnpassEventRepositoryProtocol {
     let disposeBag = DisposeBag()
     
-    func fetchEvent(searchText: String) -> Single<[Event]> {
+    func fetchEvent(searchText: String) -> Single<[ConnpassEvent]> {
         return Single.create { single in
             var components = URLComponents(string: "https://connpass.com/api/v1/event/")
             components?.queryItems = [

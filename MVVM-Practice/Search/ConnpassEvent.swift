@@ -1,4 +1,4 @@
-struct Event: Codable {
+struct ConnpassEvent: Codable {
     var title: String
     var catchCopy: String
     var eventUrl: String
@@ -13,6 +13,6 @@ struct Event: Codable {
 }
 
 struct Response: Codable {
-    var events: [Event]
+    var events: [ConnpassEvent]
 }
 

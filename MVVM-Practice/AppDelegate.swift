@@ -9,7 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         
-        let _ = NavigationRouter(window: self.window!)
+        let router = NavigationRouter(window: self.window!)
+        router.displaySearchEventView()
         
         return true
     }

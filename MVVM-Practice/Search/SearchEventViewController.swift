@@ -7,7 +7,7 @@ class SearchEventViewController: UIViewController {
     let searchBar = UISearchBar(frame: .zero)
     let tableview = UITableView(frame: .zero, style: .grouped)
     let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    var events = [Event]()
+    var events = [ConnpassEvent]()
     let eventCellIdentifier = "eventCell"
     
     var router: NavigationRouter

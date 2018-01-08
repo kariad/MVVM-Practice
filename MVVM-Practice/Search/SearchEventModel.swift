@@ -2,15 +2,20 @@ import RxSwift
 import RxCocoa
 
 class SearchEventModel {
-    let events = BehaviorRelay<[Event]>(value: [])
+    let events = BehaviorRelay<[ConnpassEvent]>(value: [])
     let isLoading = BehaviorRelay<Bool>(value: false)
     let isError = BehaviorRelay<Bool>(value: false)
     let disposeBag = DisposeBag()
     
+    let repository: ConnpassEventRepositoryProtocol
+    
+    init(repository: ConnpassEventRepositoryProtocol) {
+        self.repository = repository
+    }
+    
     func search(text: String) {
         self.isLoading.accept(true)
-        let repository = ConnpassEventRepository()
-        repository.fetchEvent(searchText: text)
+        self.repository.fetchEvent(searchText: text)
             .subscribe(
                 onSuccess: { [unowned self] events in
                     self.events.accept(events)

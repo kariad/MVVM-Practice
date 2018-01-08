@@ -12,7 +12,11 @@ class EventCell: UITableViewCell {
         self.accessoryType = .disclosureIndicator
     }
     
-    func configureCell(_ event: Event) {
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCell(_ event: ConnpassEvent) {
         self.addSubviews()
         self.startedAtLabel.text = self.parseDate(from: event.startedAt)
         self.startedAtLabel.font = UIFont.systemFont(ofSize: 15.0)
@@ -54,9 +58,5 @@ class EventCell: UITableViewCell {
         outputDateFormatter.locale = Locale(identifier: "ja_JP")
         outputDateFormatter.calendar = Calendar(identifier: .gregorian)
         return outputDateFormatter.string(from: date!)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

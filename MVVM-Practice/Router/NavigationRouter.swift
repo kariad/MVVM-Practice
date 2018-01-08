@@ -1,15 +1,19 @@
 import UIKit
 import SafariServices
 
-class NavigationRouter {
+class NavigationRouter: Router {
     var window: UIWindow
     var searchEventNavController: UINavigationController!
     
     init(window: UIWindow) {
         self.window = window
-        let searchEventViewController = SearchEventViewController(router: self)
-        self.searchEventNavController = UINavigationController(rootViewController: searchEventViewController)
+        self.searchEventNavController = UINavigationController()
         self.window.rootViewController = self.searchEventNavController
+    }
+    
+    func displaySearchEventView() {
+        let searchEventViewController = SearchEventViewController(router: self)
+        self.searchEventNavController.pushViewController(searchEventViewController, animated: false)
     }
     
     func displayEventDetailView(url: String) {

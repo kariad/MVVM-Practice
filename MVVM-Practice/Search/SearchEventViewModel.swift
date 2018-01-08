@@ -5,16 +5,17 @@ class SearchEventViewModel {
     let searchText = BehaviorRelay<String>(value: "")
     var searchButtonTapped: Driver<Void>
     var cancelButtonTapped: Driver<Void>
-    var events: BehaviorRelay<[Event]>
+    var events: BehaviorRelay<[ConnpassEvent]>
     var isLoading = BehaviorRelay<Bool>(value: false)
     var disposedBag = DisposeBag()
     
-    let searchEventModel = SearchEventModel()
+    let searchEventModel: SearchEventModel
     
     init(searchText: Driver<String?>,
          searchButtonTapped: Driver<Void>,
          cancelButtonTapped: Driver<Void>)
     {
+        self.searchEventModel = SearchEventModel(repository: ConnpassEventRepository())
         self.searchButtonTapped = searchButtonTapped
         self.cancelButtonTapped = cancelButtonTapped
         self.events = self.searchEventModel.events
