@@ -10,13 +10,14 @@ class SearchEventViewController: UIViewController {
     var events = [ConnpassEvent]()
     let eventCellIdentifier = "eventCell"
     
-    var router: NavigationRouter
-    var searchEventViewModel: SearchEventViewModel!
+    var router: Router
+    var searchEventViewModel: SearchEventViewModelProtocol
     
     var disposeBag = DisposeBag()
     
-    init(router: NavigationRouter) {
+    init(router: Router, searchEventViewModel: SearchEventViewModelProtocol) {
         self.router = router
+        self.searchEventViewModel = searchEventViewModel
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,59 +27,59 @@ class SearchEventViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.addSubviews()
-        self.configureSubviews()
-        self.addConstraints()
+        addSubviews()
+        configureSubviews()
+        addConstraints()
         
-        self.addBindToViewModel()
+        addBindToViewModel()
     }
     
     func addSubviews() {
-        self.view.addSubview(self.tableview)
-        self.view.addSubview(self.activityIndicatorView)
+        view.addSubview(tableview)
+        view.addSubview(activityIndicatorView)
     }
     
     func configureSubviews() {
         self.view.backgroundColor = .white
-        self.navigationItem.titleView = self.searchBar
+        self.navigationItem.titleView = searchBar
         self.searchBar.delegate = self
         self.searchBar.showsCancelButton = true
         self.tableview.dataSource = self
         self.tableview.delegate = self
-        self.tableview.register(EventCell.self, forCellReuseIdentifier: self.eventCellIdentifier)
+        self.tableview.register(EventCell.self, forCellReuseIdentifier: eventCellIdentifier)
     }
     
     func addConstraints() {
-        self.tableview.autoPinEdgesToSuperviewEdges()
+        tableview.autoPinEdgesToSuperviewEdges()
         
-        self.activityIndicatorView.autoAlignAxis(toSuperviewAxis: .vertical)
-        self.activityIndicatorView.autoAlignAxis(toSuperviewAxis: .horizontal)
+        activityIndicatorView.autoAlignAxis(toSuperviewAxis: .vertical)
+        activityIndicatorView.autoAlignAxis(toSuperviewAxis: .horizontal)
     }
     
-    func addBindToViewModel() {
-        self.searchEventViewModel = SearchEventViewModel(
-            searchText: self.searchBar.rx.text.asDriver(),
-            searchButtonTapped: self.searchBar.rx.searchButtonClicked.asDriver(),
-            cancelButtonTapped: self.searchBar.rx.cancelButtonClicked.asDriver()
+    fileprivate func addBindToViewModel() {
+        searchEventViewModel.inject(
+            searchText: searchBar.rx.text.asDriver(),
+            tappedSearchButton: searchBar.rx.searchButtonClicked.asSignal(),
+            cancelButtonTapped: searchBar.rx.cancelButtonClicked.asSignal()
         )
-        
-        self.searchEventViewModel.searchText
+
+        searchEventViewModel.searchText
             .asDriver()
-            .drive(self.searchBar.rx.text)
-            .disposed(by: self.disposeBag)
+            .drive(searchBar.rx.text)
+            .disposed(by: disposeBag)
         
-        self.searchEventViewModel.events
+        searchEventViewModel.events
             .asDriver()
             .drive(onNext: { [unowned self] evnets in
                 self.events = evnets
                 self.tableview.reloadData()
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
-        self.searchEventViewModel.isLoading
+        searchEventViewModel.isLoading
             .asDriver()
-            .drive(self.activityIndicatorView.rx.isAnimating)
-            .disposed(by: self.disposeBag)
+            .drive(activityIndicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
     }
 }
 

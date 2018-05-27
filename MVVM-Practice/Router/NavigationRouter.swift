@@ -12,7 +12,10 @@ class NavigationRouter: Router {
     }
     
     func displaySearchEventView() {
-        let searchEventViewController = SearchEventViewController(router: self)
+        let searchEventViewModel = SearchEventViewModel(connpassEventRepository: ConnpassEventRepository())
+        let searchEventViewController = SearchEventViewController(
+            router: self, searchEventViewModel: searchEventViewModel
+        )
         self.searchEventNavController.pushViewController(searchEventViewController, animated: false)
     }
     
